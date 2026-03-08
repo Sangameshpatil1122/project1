@@ -1,9 +1,9 @@
 import speech_recognition as sr
 import webbrowser
 import pyttsx3
-import client
+
 import musiclibrary
-from openai import OpenAI
+
 
 recognizer = sr.Recognizer()
 engine = pyttsx3.init()
@@ -11,19 +11,6 @@ engine = pyttsx3.init()
 def speak(text):
     engine.say(text)
     engine.runAndWait()
-
-
-def aiprocess(command):
-    client = OpenAI(api_key="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")
-
-    completion = client.chat.completions.create(
-    model="gpt-3.5-turbo",
-    messages=[
-        {"role": "system", "content": "You are a virtual assistant named jarvis, skilled in general tasks like alexa and google cloud "},
-        {"role": "user", "content": command}
-    ]
-)
-    return completion.choices[0].message
 
 
 def processCommand(c):
@@ -42,10 +29,7 @@ def processCommand(c):
     elif "show news" in c.lower():
         news=webbrowser.open("https://news.google.com") 
 
-    else:
-        #let openai handle the request
-        output=aiprocess(c)
-        speak(output)
+   
 
 if __name__ == "__main__":
     speak("initializing jarvis....")
